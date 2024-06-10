@@ -4,7 +4,7 @@ import WebTorrent from 'webtorrent'
 
 function App(): JSX.Element {
   const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
-  // const client = new WebTorrent()
+  const client = new WebTorrent()
 
   return (
     <>
