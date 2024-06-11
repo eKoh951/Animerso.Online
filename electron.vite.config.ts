@@ -1,9 +1,9 @@
 // electron.vite.config.ts
-import { resolve } from 'path'
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import react from '@vitejs/plugin-react-swc'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
-import { fileURLToPath } from 'url'
+import { resolve } from 'path';
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
+import react from '@vitejs/plugin-react-swc';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { fileURLToPath } from 'url';
 
 export default defineConfig({
   main: {
@@ -45,6 +45,7 @@ export default defineConfig({
           new URL('./node_modules/webtorrent/dist/webtorrent.min.js', import.meta.url)
         )
       }
-    }
+    },
+    publicDir: 'public'
   }
-})
+});
