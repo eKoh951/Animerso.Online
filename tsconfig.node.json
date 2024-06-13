@@ -1,3 +1,4 @@
+// tsconfig.node.json
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
   "include": [

@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useTorrentStream } from './hooks/useTorrentStream';
+import { useState } from 'react'
+import { useTorrentStream } from './hooks/useTorrentStream'
 
 function App(): JSX.Element {
   const [torrentId, setTorrentId] = useState(
     'https://webtorrent.io/torrents/sintel.torrent'
-  );
+  )
 
   const {
     torrent,
@@ -14,8 +14,8 @@ function App(): JSX.Element {
     numPeers,
     downloaded,
     total,
-    remaining,
-  } = useTorrentStream(torrentId);
+    remaining
+  } = useTorrentStream(torrentId)
 
   return (
     <div className="app">
@@ -48,7 +48,7 @@ function App(): JSX.Element {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
