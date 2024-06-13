@@ -1,4 +1,5 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron';
+// src/main/index.ts
+import { app, shell, BrowserWindow, ipcMain, utilityProcess } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
@@ -8,12 +9,13 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
-    show: false,
-    autoHideMenuBar: true,
+    // show: false,
+    // autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: true,
+      contextIsolation: true,
     }
   });
 
@@ -33,6 +35,27 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
+
+  const webTorrentProcess = utilityProcess.fork('src/main/webtorrent.js');
+
+  webTorrentProcess.on('message', (message) => {
+    if (message.type === 'torrent-progress') {
+      mainWindow.webContents.send('torrent-progress', message.data);
+    }
+
+    if (message.type === 'torrent-done') {
+      mainWindow.webContents.send('torrent-done');
+    }
+
+    if (message.type === 'torrent-file') {
+      mainWindow.webContents.send('torrent-file', message.data);
+    }
+  });
+
+  ipcMain.on('webtorrent-action', (event, arg) => {
+    webTorrentProcess.postMessage(arg);
+  });
+
 }
 
 // This method will be called when Electron has finished

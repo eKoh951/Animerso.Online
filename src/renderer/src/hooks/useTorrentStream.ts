@@ -1,6 +1,81 @@
 import { useState, useEffect } from 'react';
-import WebTorrent from 'webtorrent';
-import moment from 'moment';
+
+function useTorrentStream(torrentId: string) {
+  const [torrent, setTorrent] = useState<any>(null);
+  const [progress, setProgress] = useState<number>(0);
+  const [downloadSpeed, setDownloadSpeed] = useState<string>('0 b/s');
+  const [uploadSpeed, setUploadSpeed] = useState<string>('0 b/s');
+  const [numPeers, setNumPeers] = useState<number>(0);
+  const [downloaded, setDownloaded] = useState<string>('0 B');
+  const [total, setTotal] = useState<string>('0 B');
+  const [remaining, setRemaining] = useState<string>('Remaining');
+
+  useEffect(() => {
+    window.api.addTorrent(torrentId);
+
+    const handleTorrentProgress = (event: any, data: any) => {
+      const { numPeers, downloaded, total, progress, downloadSpeed, uploadSpeed, remaining } = data;
+
+      setNumPeers(numPeers);
+      setDownloaded(prettyBytes(downloaded));
+      setTotal(prettyBytes(total));
+      setProgress(Math.round(progress * 100 * 100) / 100);
+      setDownloadSpeed(prettyBytes(downloadSpeed) + '/s');
+      setUploadSpeed(prettyBytes(uploadSpeed) + '/s');
+      setRemaining(remaining);
+    };
+
+    const handleTorrentDone = () => {
+      document.body.className += ' is-seed';
+    };
+
+    const handleTorrentFile = (event: any, data: any) => {
+      const { buffer } = data;
+      const byteCharacters = atob(buffer);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'video/mp4' });
+      const url = URL.createObjectURL(blob);
+
+      const player = document.querySelector<HTMLVideoElement>('#output');
+      if (player) {
+        player.src = url;
+        player.play();
+      }
+    };
+
+    const handleTorrentError = (event: any, data: any) => {
+      console.error('Torrent error:', data.message);
+      alert('Error: ' + data.message);
+    };
+
+    window.api.onTorrentProgress(handleTorrentProgress);
+    window.api.onTorrentDone(handleTorrentDone);
+    window.api.onTorrentFile(handleTorrentFile);
+    window.api.onTorrentError(handleTorrentError);
+
+    return () => {
+      window.api.removeTorrentProgress(handleTorrentProgress);
+      window.api.removeTorrentDone(handleTorrentDone);
+      window.api.removeTorrentFile(handleTorrentFile);
+      window.api.removeTorrentError(handleTorrentError);
+    };
+  }, [torrentId]);
+
+  return {
+    torrent,
+    progress,
+    downloadSpeed,
+    uploadSpeed,
+    numPeers,
+    downloaded,
+    total,
+    remaining,
+  };
+}
 
 function prettyBytes(num: number) {
   const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -13,95 +88,4 @@ function prettyBytes(num: number) {
   return (neg ? '-' : '') + num + ' ' + unit;
 }
 
-export function useTorrentStream(torrentId: string) {
-  const [torrent, setTorrent] = useState<any>(null);
-  const [progress, setProgress] = useState(0);
-  const [downloadSpeed, setDownloadSpeed] = useState('0 B');
-  const [uploadSpeed, setUploadSpeed] = useState('0 B');
-  const [numPeers, setNumPeers] = useState(0);
-  const [downloaded, setDownloaded] = useState('0 B');
-  const [total, setTotal] = useState('0 B');
-  const [remaining, setRemaining] = useState('');
-  const [isMounted, setIsMounted] = useState(true);
-
-  useEffect(() => {
-    let client: WebTorrent.Instance | null = null;
-
-    async function startDownload() {
-      client = new WebTorrent();
-
-      try {
-        download();
-      } catch (error) {
-        console.error('Error starting download:', error);
-      }
-    }
-
-    function download() {
-      if (!isMounted || !client) return;
-
-      client.add(torrentId, async (torrent: any) => {
-        setTorrent(torrent);
-
-        const file = torrent.files.find((file: any) => file.name.endsWith('.mp4'));
-
-        if (file) {
-          file.streamTo(document.querySelector('#output'));
-        }
-
-        torrent.on('done', onDone);
-        setInterval(onProgress, 500);
-        onProgress();
-
-        function onProgress() {
-          setNumPeers(torrent.numPeers);
-          setProgress(Math.round(torrent.progress * 100 * 100) / 100);
-          setDownloaded(prettyBytes(torrent.downloaded));
-          setTotal(prettyBytes(torrent.length));
-          setDownloadSpeed(prettyBytes(torrent.downloadSpeed));
-          setUploadSpeed(prettyBytes(torrent.uploadSpeed));
-
-          let remaining;
-          if (torrent.done) {
-            remaining = 'Done.';
-          } else {
-            remaining = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize();
-            remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.';
-          }
-          setRemaining(remaining);
-        }
-
-        async function onDone() {
-          const videoBlob = await file.blob();
-          const videoUrl = URL.createObjectURL(videoBlob);
-          const videoElement = document.querySelector('#output') as HTMLVideoElement;
-
-          if (videoElement) {
-            videoElement.src = videoUrl;
-            videoElement.play();
-          }
-
-          onProgress();
-        }
-      });
-    }
-
-    startDownload();
-
-    return () => {
-      setIsMounted(false);
-      client?.destroy();
-    };
-  }, [torrentId]);
-
-  return {
-    torrent,
-    progress,
-    downloadSpeed,
-    uploadSpeed,
-    numPeers,
-    downloaded,
-    total,
-    remaining
-  };
-}
+export { useTorrentStream };

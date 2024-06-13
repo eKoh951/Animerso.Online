@@ -1,14 +1,7 @@
 import { useState } from 'react';
-import WebTorrent from 'webtorrent';
-
-import Versions from './components/Versions';
-import electronLogo from './assets/electron.svg';
 import { useTorrentStream } from './hooks/useTorrentStream';
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping');
-  const client = new WebTorrent();
-
   const [torrentId, setTorrentId] = useState(
     'https://webtorrent.io/torrents/sintel.torrent'
   );
