@@ -1,3 +1,4 @@
+# .github\workflows\build-and-publish.yml
 name: Build and Publish
 
 on:
@@ -22,6 +23,6 @@ jobs:
         run: npm install
 
       - name: Build and publish
-        run: npm run publish
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run publish
