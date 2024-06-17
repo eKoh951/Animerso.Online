@@ -59,6 +59,13 @@ Gracias a todas las personas que ya han contribuido a Animerso.online!
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+[![All Contributors](https://img.shields.io/github/all-contributors/eKoh951/Animerso.online?color=C1E1F6&style=flat-square)](#contributors)
+
+<!-- Paleta de colores
+Rosa pastel: #FFD6E8
+Azul pastel: #C1E1F6
+ -->
+
 ## Contacto
 
 Para cualquier consulta, puedes contactar a [eKoh951](mailto:greatekoh@gmail.com).
