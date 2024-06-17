@@ -48,14 +48,15 @@ Por favor, asegúrate de leer la [Guía de Contribución](CONTRIBUTING.md) antes
 
 Gracias a todas las personas que ya han contribuido a Animerso.online!
 
+## Contributors
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<table>
-  <tr>
-    <!-- Aquí el bot de All Contributors agregará automáticamente los avatares de los contribuidores -->
-  </tr>
-</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 Este proyecto sigue la especificación [all-contributors](https://allcontributors.org/). ¡Contribuciones de cualquier tipo son bienvenidas!
