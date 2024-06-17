@@ -48,7 +48,7 @@ Por favor, asegúrate de leer la [Guía de Contribución](CONTRIBUTING.md) antes
 
 Gracias a todas las personas que ya han contribuido a Animerso.online!
 
-## Contributors
+## Colaboradores
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -58,8 +58,6 @@ Gracias a todas las personas que ya han contribuido a Animerso.online!
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-Este proyecto sigue la especificación [all-contributors](https://allcontributors.org/). ¡Contribuciones de cualquier tipo son bienvenidas!
 
 ## Contacto
 
