@@ -4,12 +4,15 @@
   <img src="https://via.placeholder.com/300x150" alt="Logo Placeholder"> <!-- Aquí puedes poner el logo de tu proyecto -->
 </p>
 
+<h1 align="center">Nuestra misión</h1>
 <p align="center">
-  <b>Animerso.Online</b> es una aplicación para Windows que permite ver anime con tus amigos de manera gratuita.
+   La misión de <b>Animerso.Online</b> es poder conectarte con tus amigos para ver el anime que estas viendo.
 </p>
 
+---
+
 <p align="center">
-  La aplicación utiliza torrents, lo que permite que los usuarios mismos sean los encargados de seedear los animes. Cuanto más grande sea la comunidad, mejor será la experiencia de ver anime.
+  Animerso.Online es una aplicación de escritorio para Windows que streamea episodios de anime a través de  torrents, esto nos permitirá crecer de manera sustentable, mientras mas gente este viendo anime, mejor será el servicio de streaming.
 </p>
 
 ## Tecnologías Utilizadas
@@ -19,7 +22,7 @@
 - **TypeScript**: Superset de JavaScript que añade tipado estático.
 - **Shadcn + TailwindCSS**: Para estilos y diseño visual.
 
-## Características
+## Características (features)
 
 - Ver anime en sincronía con amigos.
 - Aplicación de escritorio para una experiencia sin interrupciones.
