@@ -53,6 +53,13 @@ Gracias a todas las personas que ya han contribuido a Animerso.online!
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://i.asure.dev/"><img src="https://avatars.githubusercontent.com/u/78936992?v=4?s=100" width="100px;" alt="Rafael Ayala"/><br /><sub><b>Rafael Ayala</b></sub></a><br /><a href="#infra-iAsure" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/eKoh951/Animerso.Online/eKoh951/Animerso.Online/commits?author=iAsure" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
