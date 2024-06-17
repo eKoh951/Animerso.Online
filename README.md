@@ -53,6 +53,13 @@ Gracias a todas las personas que ya han contribuido a Animerso.online!
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/eKoh951"><img src="https://avatars.githubusercontent.com/u/9522251?v=4?s=100" width="100px;" alt="eKoh - Erick Ponce"/><br /><sub><b>eKoh - Erick Ponce</b></sub></a><br /><a href="#infra-eKoh951" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/eKoh951/Animerso.Online/eKoh951/Animerso.Online/commits?author=eKoh951" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
