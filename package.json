@@ -1,7 +1,7 @@
 {
   "name": "Animerso.Online",
   "version": "0.0.1",
-  "description": "An Electron application with React and TypeScript",
+  "description": "La forma más rápida, segura y social de disfrutar anime en español",
   "main": "./out/main/index.js",
   "author": "example.com",
   "homepage": "https://electron-vite.org",
