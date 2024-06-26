@@ -1,54 +1,61 @@
-import { useState } from 'react'
-import { useTorrentStream } from './hooks/useTorrentStream'
+import React, { useEffect, useRef } from 'react';
+import useTorrentStream from './hooks/useTorrentStream';
 
 function App(): JSX.Element {
-  const [torrentId, setTorrentId] = useState(
-    'https://webtorrent.io/torrents/sintel.torrent'
-  )
+  const torrentId = 'https://webtorrent.io/torrents/sintel.torrent';
 
   const {
-    torrent,
     progress,
     downloadSpeed,
     uploadSpeed,
     numPeers,
     downloaded,
     total,
-    remaining
-  } = useTorrentStream(torrentId)
+    remaining,
+    videoUrl
+  } = useTorrentStream(torrentId);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoUrl && videoRef.current) {
+      videoRef.current.src = videoUrl;
+    }
+  }, [videoUrl]);
 
   return (
     <div className="app">
       <div>
         <div id="progressBar" style={{ width: `${progress}%` }}></div>
-        <video id="output" controls autoPlay></video>
+        <video
+          ref={videoRef}
+          controls
+          autoPlay
+          style={{ width: '100%', maxWidth: '800px' }}
+        />
       </div>
       <div id="status">
         <div>
-          <span className={torrent?.done ? 'show-seed' : 'show-leech'}>
-            {torrent?.done ? 'Seeding' : 'Downloading'}
-          </span>
+          {/* <span>{torrent?.done ? 'Seeding' : 'Downloading'}</span>
+          <span>{torrent?.done ? ' to ' : ' from '}</span> */}
+          <code>{numPeers} peers</code>
+        </div>
+        <div>
           <code>
-            <a id="torrentLink" href={torrentId}>
+            <a style={{ color: '#fff' }} id="torrentLink" href={torrentId}>
               {torrentId}
             </a>
           </code>
-          <span className={torrent?.done ? 'show-seed' : 'show-leech'}>
-            {torrent?.done ? ' to ' : ' from '}
-          </span>
-          <code id="numPeers">{numPeers} peers</code>.
         </div>
         <div>
-          <code id="downloaded">{downloaded}</code>
-          of <code id="total">{total}</code>—{' '}
-          <span id="remaining">{remaining}</span>
-          <br />
-          &#x2198;<code id="downloadSpeed">{downloadSpeed}/s</code>/ &#x2197;
-          <code id="uploadSpeed">{uploadSpeed}/s</code>
+          <code>{downloaded || '0 B'}</code> of <code>{total || '0 B'}</code> —
+          <span>{remaining || 'Calculating...'}</span>
+          <br />↓<code>{downloadSpeed || '0 B/s'}</code> / ↑
+          <code>{uploadSpeed || '0 B/s'}</code>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default React.memo(App);
